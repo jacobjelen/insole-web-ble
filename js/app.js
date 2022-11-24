@@ -130,6 +130,7 @@ function handleNotifications(event) {
         str += String.fromCharCode(value.getUint8(i));
     }
     window.term_.io.print(str);
+    
 }
 
 function nusSendString(s) {

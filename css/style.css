@@ -14,9 +14,12 @@ body {
 #terminal {
   display: block;
   position: fixed;
-  top: 80px;
-  bottom: 5%;
-  width: 100%;
+  /* top: 80px; */
+  bottom: 0%;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  
 }
 
 #connection-panel {
@@ -25,7 +28,7 @@ body {
 
 #clientConnectButton {
   position:fixed;
-  background-color: rgb(51,105,232);
+  background-color: var(--infi-orange);
   border: none;
   border-radius: 8px;
   width: 120px;
