@@ -1,27 +1,3 @@
-
-html {
-  height: 100%;
-}
-body {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  margin: 0px;
-  padding: 0px;
-  background: #101010;
-}
-#terminal {
-  display: block;
-  position: fixed;
-  /* top: 80px; */
-  bottom: 0%;
-  right: 0;
-  width: 30%;
-  height: 100%;
-  
-}
-
 #connection-panel {
   background: transparent;
 }

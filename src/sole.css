@@ -10,12 +10,6 @@
   /* each insole is 224 x 700 px */
 }
 
-/* To flip between left/right sole */
-.flip{
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
-}
-
 #sole-container{  
   display: grid;
   grid-template-columns: 100%; /* LAYOUT */
@@ -23,7 +17,7 @@
   gap: 0% 0%;
   grid-auto-flow: row;
   grid-template-areas:
-    "forcepad-box"
+    "forcepad-box terminal"
 }
 
 #sole-mask{ 
@@ -44,7 +38,7 @@
 
 
 #touchpad{
-  background-image: url("src/imgs/bg_forcepad10x6.svg");
+  background-image: url("imgs/bg_forcepad10x6.svg");
   background-size: 180%;
   background-repeat: repeat;
   /* background-color: aquamarine; */
@@ -72,6 +66,31 @@
     overflow: hidden !important;
     z-index:99;
     height: 100%;
+}
+
+#flip-button{
+  border: 0px;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  width: 40px;
+  cursor: pointer;
+}
+
+#flip-button img{
+  width: 100%;
+  top: 50%;
+}
+
+/* To flip between left/right sole */
+.flip-x{
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+.flip-y{
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
 }
 
 .forcepad-box { grid-area: forcepad-box; }

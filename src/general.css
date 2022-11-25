@@ -19,7 +19,10 @@
   font-weight: 400;
 
   box-sizing: border-box; /* to have the border line on the div inside */
+}
 
+#connection-panel {
+  background: transparent;
 }
 
 /* MAIN */
@@ -56,21 +59,21 @@ html, body, .container {
   text-decoration: none;
 }
 
-#connect{
+#clientConnectButton{
   position:absolute;
   padding: 5px 10px;
-  margin: 10px;
+  margin: 15px;
   width: auto;
-
+  color: grey;
   font-size: clamp(13px, var(--label-font-size), 15px) ;
   font-family: "DINPro",sans-serif;
   font-weight: 400;
   background-color: var(--bg-color);
-  border: solid 1px white;
+  border: solid 1px grey;
   border-radius: 3px;
 }
 
-#connect:hover{
+#clientConnectButton:hover{
   color: var(--main-color);
   border-color: var(--main-color) !important;
   cursor: pointer;
@@ -79,10 +82,11 @@ html, body, .container {
 .connect-ok{
   color: grey;
   border: 0px !important;
-  border-color: grey !important;
+  border-color: solid 1px grey !important;
 }
 
 .connect-error{
+  
   color: var(--highlight-color);
   border-color: var(--highlight-color) !important;
 }
@@ -93,7 +97,7 @@ html, body, .container {
   width: clamp(100px, 100%, 300px);
 
   position:absolute;
-  margin: 10px;
+  margin: 15px;
   top: 5%;
 
   font-size: clamp(13px, var(--label-font-size), 15px) ;
@@ -125,7 +129,14 @@ opacity: 1
   background-size: 100% 100%;
 }
 
+#terminal{ 
+  position: absolute;
+  width: 30%;
+  right: 0px;
+  height: 100%;
+  opacity: 0.3;
 
+}
 
 /* For presentation only, no need to copy the code below */
 
