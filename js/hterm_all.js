@@ -8388,10 +8388,11 @@ hterm.PreferenceManager.defaultPreferences = {
       `to display notifications.`
   ),
 
+  // JACOB made the background transparent
   'background-color': hterm.PreferenceManager.definePref_(
       'Background color',
       hterm.PreferenceManager.categories.Appearance,
-      'rgb(16, 16, 16)', 'color',
+      'rgb(16, 16, 16, 0)', 'color', 
       `The background color for text with no other color attributes.`
   ),
 
@@ -12382,7 +12383,7 @@ hterm.Terminal.prototype.setProfile = function(profileId, opt_callback) {
         return;
       }
 
-      terminal.setFontSize(v);
+      terminal.setFontSize(8); // JACOB: changed from .setFontSize(v)
     },
 
     'font-smoothing': function(v) {
