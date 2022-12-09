@@ -1,14 +1,14 @@
 'use strict';
 
-const bleNusServiceUUID  = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
-const bleNusCharRXUUID   = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
-const bleNusCharTXUUID   = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+const bleNusServiceUUID  = '713D0000-503E-4C75-BA94-3148F18D941E';
+const bleNusCharRXUUID   = '713D0002-503E-4C75-BA94-3148F18D941E';
+// const bleNusCharTXUUID   = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 const MTU = 20;
 
 var bleDevice;
 var bleServer;
 var nusService;
-var rxCharacteristic;
+// var rxCharacteristic;
 var txCharacteristic;
 
 var connected = false;
@@ -71,18 +71,18 @@ function connect() {
         console.log('Locate TX characteristic');
         return nusService.getCharacteristic(bleNusCharTXUUID);
     })
-    .then(characteristic => {
-        txCharacteristic = characteristic;
-        console.log('Found TX characteristic');
-    })
-    .then(() => {
-        console.log('Enable notifications');
-        return txCharacteristic.startNotifications();
-    })
+    // .then(characteristic => {
+    //     txCharacteristic = characteristic;
+    //     console.log('Found TX characteristic');
+    // })
+    // .then(() => {
+    //     console.log('Enable notifications');
+    //     return txCharacteristic.startNotifications();
+    // })
     .then(() => {
         console.log('Notifications started');
-        txCharacteristic.addEventListener('characteristicvaluechanged',
-                                          handleNotifications);
+        // txCharacteristic.addEventListener('characteristicvaluechanged',
+        //                                   handleNotifications);
         connected = true;
         window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
         nusSendString('\r');
