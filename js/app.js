@@ -8,8 +8,8 @@ const MTU = 20;
 var bleDevice;
 var bleServer;
 var nusService;
-// var rxCharacteristic;
-var txCharacteristic;
+var rxCharacteristic;
+// var txCharacteristic;
 
 var connected = false;
 
