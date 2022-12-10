@@ -134,10 +134,9 @@ function handleNotifications(event) {
     // construct a string.
     let str = "";
     for (let i = 0; i < value.byteLength; i++) {
-        str += value //String.fromCharCode(value.getUint8(i));
+        str += value.getUint8(i) //String.fromCharCode(value.getUint8(i));
     }
     window.term_.io.print(str);
-    
 }
 
 function nusSendString(s) {
