@@ -82,10 +82,10 @@ function connect() {
     //     txCharacteristic = characteristic;
     //     console.log('Found TX characteristic');
     // })
-    // .then(() => {
-    //     console.log('Enable notifications');
-    //     return txCharacteristic.startNotifications();
-    // })
+    .then(() => {
+        console.log('Enable notifications');
+        return rxCharacteristic.startNotifications();
+    })
     .then(() => {
         console.log('Notifications started');
         rxCharacteristic.addEventListener('characteristicvaluechanged',
