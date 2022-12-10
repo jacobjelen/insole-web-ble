@@ -1,7 +1,7 @@
 'use strict';
 // // PETER
 const bleNusServiceUUID  = '713d0000-503e-4c75-ba94-3148f18d941e'; 
-const bleNusCharRXUUID   = '713d0002-503e-4c75-ba94-3148f18d941e'; 
+const bleNusCharTXUUID   = '713d0002-503e-4c75-ba94-3148f18d941e'; 
 
 
 // // ORIGINAL
@@ -14,8 +14,8 @@ const MTU = 20;
 var bleDevice;
 var bleServer;
 var nusService;
-var rxCharacteristic;
-// var txCharacteristic;
+// var rxCharacteristic;
+var txCharacteristic;
 
 var connected = false;
 
@@ -66,29 +66,29 @@ function connect() {
         nusService = service;
         console.log('Found NUS service: ' + service.uuid);
     })
-    .then(() => {
-        console.log('Locate RX characteristic');
-        return nusService.getCharacteristic(bleNusCharRXUUID);
-    })
-    .then(characteristic => {
-        rxCharacteristic = characteristic;
-        console.log('Found RX characteristic');
-    })
     // .then(() => {
-    //     console.log('Locate TX characteristic');
-    //     return nusService.getCharacteristic(bleNusCharTXUUID);
+    //     console.log('Locate RX characteristic');
+    //     return nusService.getCharacteristic(bleNusCharRXUUID);
     // })
     // .then(characteristic => {
-    //     txCharacteristic = characteristic;
-    //     console.log('Found TX characteristic');
+    //     rxCharacteristic = characteristic;
+    //     console.log('Found RX characteristic');
     // })
     .then(() => {
+        console.log('Locate TX characteristic');
+        return nusService.getCharacteristic(bleNusCharTXUUID);
+    })
+    .then(characteristic => {
+        txCharacteristic = characteristic;
+        console.log('Found TX characteristic');
+    })
+    .then(() => {
         console.log('Enable notifications');
-        return rxCharacteristic.startNotifications();
+        return txCharacteristic.startNotifications();
     })
     .then(() => {
         console.log('Notifications started');
-        rxCharacteristic.addEventListener('characteristicvaluechanged',
+        txCharacteristic.addEventListener('characteristicvaluechanged',
                                           handleNotifications);
         connected = true;
         window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
@@ -148,7 +148,7 @@ function nusSendString(s) {
             let val = s[i].charCodeAt(0);
             val_arr[i] = val;
         }
-        sendNextChunk(val_arr);
+        // sendNextChunk(val_arr);
     } else {
         window.term_.io.println('Not connected to a device yet.');
     }
