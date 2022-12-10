@@ -88,8 +88,8 @@ function connect() {
     // })
     .then(() => {
         console.log('Notifications started');
-        // txCharacteristic.addEventListener('characteristicvaluechanged',
-        //                                   handleNotifications);
+        rxCharacteristic.addEventListener('characteristicvaluechanged',
+                                          handleNotifications);
         connected = true;
         window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
         nusSendString('\r');
