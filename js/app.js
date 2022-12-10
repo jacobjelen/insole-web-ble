@@ -1,8 +1,14 @@
 'use strict';
+// // PETER
+const bleNusServiceUUID  = '713d0000-503e-4c75-ba94-3148f18d941e'; 
+const bleNusCharRXUUID   = '713d0002-503e-4c75-ba94-3148f18d941e'; 
 
-const bleNusServiceUUID  = '713D0000-503E-4C75-BA94-3148F18D941E';
-const bleNusCharRXUUID   = '713D0002-503E-4C75-BA94-3148F18D941E';
+
+// // ORIGINAL
+// const bleNusServiceUUID  = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';  
+// const bleNusCharRXUUID   = '6e400002-b5a3-f393-e0a9-e50e24dcca9e'; 
 // const bleNusCharTXUUID   = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+
 const MTU = 20;
 
 var bleDevice;
@@ -41,7 +47,7 @@ function connect() {
     }
     console.log('Requesting Bluetooth Device...');
     navigator.bluetooth.requestDevice({
-        //filters: [{services: []}]
+        // filters: [{services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e']}],
         optionalServices: [bleNusServiceUUID],
         acceptAllDevices: true
     })
@@ -55,7 +61,8 @@ function connect() {
     .then(server => {
         console.log('Locate NUS service');
         return server.getPrimaryService(bleNusServiceUUID);
-    }).then(service => {
+    })
+    .then(service => {
         nusService = service;
         console.log('Found NUS service: ' + service.uuid);
     })
