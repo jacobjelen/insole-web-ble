@@ -74,10 +74,10 @@ function connect() {
         rxCharacteristic = characteristic;
         console.log('Found RX characteristic');
     })
-    .then(() => {
-        console.log('Locate TX characteristic');
-        return nusService.getCharacteristic(bleNusCharTXUUID);
-    })
+    // .then(() => {
+    //     console.log('Locate TX characteristic');
+    //     return nusService.getCharacteristic(bleNusCharTXUUID);
+    // })
     // .then(characteristic => {
     //     txCharacteristic = characteristic;
     //     console.log('Found TX characteristic');
