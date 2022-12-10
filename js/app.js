@@ -165,6 +165,8 @@ function handleNotifications(event) {
         
         // update touchpad on the screen
         update_touchpad()
+        
+        document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t`
     }
     window.term_.io.print(str);
 }

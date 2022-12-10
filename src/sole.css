@@ -102,6 +102,14 @@
   z-index: 100;
 }
 
-
+#values{
+  border: 0px;
+  position: absolute;
+  bottom: 30px;
+  left: 70%;
+  color: var(--infi-orange);
+  font-size: clamp(30px, var(--label-font-size), 15px) ;
+  font-family: "DINPro",sans-serif;
+}
 
 
