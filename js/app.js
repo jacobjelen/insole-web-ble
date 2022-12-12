@@ -190,7 +190,7 @@ function update_touchpad() {
       // press.style.display = 'block'
       press.style.width = sizez
       press.style.height = sizez
-      press.style.opacity = z
+      press.style.opacity = 1
     } else {
       // press.style.display = 'none'
       press.style.width = 0
