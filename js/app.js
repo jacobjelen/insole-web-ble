@@ -186,7 +186,7 @@ function update_touchpad() {
     press.style.top = posy - (sizez / 2) // offset by a half of the size => center in the middle of press
     press.style.left = posx - (sizez / 2)
   
-    if (z > touchpad_threshold) {
+    if (touchpad.z > touchpad_threshold) {
       // press.style.display = 'block'
       press.style.width = sizez
       press.style.height = sizez
