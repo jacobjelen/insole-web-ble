@@ -168,15 +168,15 @@ function update_touchpad() {
   
     if (touchpad.z > touchpad_threshold) {
       // press.style.display = 'block'
-      press.style.width = sizez
-      press.style.height = sizez
+      press.style.width = sizez * 20
+      press.style.height = sizez * 20
       press.style.opacity = 1
       console.log(`press: x ${posx}\t y ${posy}\t z ${sizez}\t`)
     } else {
       // press.style.display = 'none'
-      press.style.width = 30
-      press.style.height = 30
-      press.style.opacity = 1
+      press.style.width = 0
+      press.style.height = 0
+      press.style.opacity = 0
     }
   
   }
