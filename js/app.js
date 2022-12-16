@@ -152,7 +152,7 @@ function handleNotifications(event) {
 }
 
 function update_touchpad() {
-    const touchpad_threshold = 450
+    const touchpad_threshold = 0 //450
   
     const canvas = document.getElementById('tp_canvas')
     const press = document.getElementById('press')
@@ -171,11 +171,12 @@ function update_touchpad() {
       press.style.width = sizez
       press.style.height = sizez
       press.style.opacity = 1
+      console.log(`press: x ${posx}\t y ${posy}\t z ${sizez}\t`)
     } else {
       // press.style.display = 'none'
-      press.style.width = 0
-      press.style.height = 0
-      press.style.opacity = 0
+      press.style.width = 30
+      press.style.height = 30
+      press.style.opacity = 1
     }
   
   }
