@@ -157,9 +157,9 @@ function update_touchpad() {
     const canvas = document.getElementById('tp_canvas')
     const press = document.getElementById('press')
   
-    const posx = touchpad.x / 4095 * canvas.clientWidth
-    const posy = touchpad.y / 4095 * canvas.clientHeight
-    const sizez = touchpad.z / 4095 * canvas.clientHeight / 2 // size of pressure cirle scales with the canvas/window
+    const posx = touchpad.x / 255 * canvas.clientWidth
+    const posy = touchpad.y / 255 * canvas.clientHeight
+    const sizez = touchpad.z / 50 * canvas.clientHeight / 2 // size of pressure cirle scales with the canvas/window
     // console.log(`x: ${posx}  y: ${posy}  z: ${sizez}`)
   
     // press is a div inside the tp_canvas div representing position and force of pressure on the physical sensor
@@ -168,8 +168,8 @@ function update_touchpad() {
   
     if (touchpad.z > touchpad_threshold) {
       // press.style.display = 'block'
-      press.style.width = sizez * 20
-      press.style.height = sizez * 20
+      press.style.width = sizez 
+      press.style.height = sizez 
       press.style.opacity = 1
       console.log(`press: x ${posx}\t y ${posy}\t z ${sizez}\t`)
     } else {
