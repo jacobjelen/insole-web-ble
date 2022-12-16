@@ -139,7 +139,7 @@ function handleNotifications(event) {
     for (let i = 0; i < value.byteLength; i++) {
         // str += String.fromCharCode(value.getUint8(i));
         
-        str += value.getUint8(i) // this will be a decimal number representing the incoming byte
+        str = value.getUint8(i) // this will be a decimal number representing the incoming byte
 
         // Head will keep track of which byte out of the expected 5 we are reading
         if (str == '170') {
@@ -168,6 +168,7 @@ function handleNotifications(event) {
         
         document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t`
     }
+    
     window.term_.io.print(str);
 }
 
