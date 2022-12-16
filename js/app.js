@@ -139,12 +139,30 @@ function handleNotifications(event) {
     for (let i = 0; i < value.byteLength; i++) {
         // str += String.fromCharCode(value.getUint8(i));
         
-        str += value.getUint8(i) // this will be a decimal number representing the incoming byte   
-    }
+        str = value.getUint8(i) // this will be a decimal number representing the incoming byte
 
-    touchpad.x = str.substring(3,6);
-    touchpad.y = str.substring(9,12);;
-    touchpad.z = str.substring(12);;
+        // Head will keep track of which byte out of the expected 5 we are reading
+        if (str == '170') {
+            head = 0
+            window.term_.io.print("---"); // update terminal on the screen
+        } else {
+            head += 1
+        }
+
+        // Update the touchpad object
+        switch (head) {
+            case 1:
+              touchpad.x = str;
+              break;
+            case 3:
+                touchpad.y = str;
+              break;
+            case 4:
+                touchpad.z = str;
+              break;
+            // default:
+            //   console.log('x is something else');
+          }
     
     update_touchpad() // update touchpad on the screen
     document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
@@ -157,8 +175,8 @@ function update_touchpad() {
     const canvas = document.getElementById('tp_canvas')
     const press = document.getElementById('press')
   
-    const posx = touchpad.x / 255 * canvas.clientWidth
-    const posy = touchpad.y / 255 * canvas.clientHeight
+    const posx = touchpad.x / 1023 * canvas.clientWidth
+    const posy = touchpad.y / 1023 * canvas.clientHeight
     const sizez = touchpad.z / 50 * canvas.clientHeight / 2 // size of pressure cirle scales with the canvas/window
     // console.log(`x: ${posx}  y: ${posy}  z: ${sizez}`)
   
