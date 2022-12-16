@@ -175,8 +175,8 @@ function update_touchpad() {
     const canvas = document.getElementById('tp_canvas')
     const press = document.getElementById('press')
   
-    const posx = touchpad.x / 1023 * canvas.clientWidth
-    const posy = touchpad.y / 1023 * canvas.clientHeight
+    const posx = touchpad.x / 255 * canvas.clientWidth
+    const posy = touchpad.y / 255 * canvas.clientHeight
     const sizez = touchpad.z / 50 * canvas.clientHeight / 2 // size of pressure cirle scales with the canvas/window
     // console.log(`x: ${posx}  y: ${posy}  z: ${sizez}`)
   
