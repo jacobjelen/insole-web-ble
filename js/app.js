@@ -163,7 +163,7 @@ function handleNotifications(event) {
             // default:
             //   console.log('x is something else');
           }
-    
+        }
     update_touchpad() // update touchpad on the screen
     document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
     window.term_.io.print(str); // update terminal on the screen
