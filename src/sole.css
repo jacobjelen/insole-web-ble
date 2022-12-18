@@ -102,10 +102,12 @@
 #values{
   border: 0px;
   position: absolute;
-  bottom: 30px;
-  left: 70%;
+  bottom: 20px;
+  right: 30px;
   color: var(--infi-orange);
-  font-size: clamp(30px, var(--label-font-size), 15px) ;
+  font-weight: 400;
+  font-size: clamp(15px, var(--label-font-size), 15px) ;
+
   font-family: "DINPro",sans-serif;
 }
 

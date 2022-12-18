@@ -177,7 +177,7 @@ function update_touchpad() {
   
     const posx = touchpad.x / 255 * canvas.clientWidth
     const posy = touchpad.y / 255 * canvas.clientHeight
-    const sizez = touchpad.z / 50 * canvas.clientHeight / 2 // size of pressure cirle scales with the canvas/window
+    const sizez = touchpad.z / 50 * canvas.clientHeight / 3 // size of pressure cirle scales with the canvas/window
     // console.log(`x: ${posx}  y: ${posy}  z: ${sizez}`)
   
     // press is a div inside the tp_canvas div representing position and force of pressure on the physical sensor
