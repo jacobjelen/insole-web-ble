@@ -40,8 +40,6 @@ function connect() {
     if (!navigator.bluetooth) {
         console.log('WebBluetooth API is not available.\r\n' +
                     'Please make sure the Web Bluetooth flag is enabled.');
-        window.term_.io.println('WebBluetooth API is not available on your browser.\r\n' +
-                    'Please make sure the Web Bluetooth flag is enabled.');
         return;
     }
     console.log('Requesting Bluetooth Device...');
@@ -83,13 +81,12 @@ function connect() {
         txCharacteristic.addEventListener('characteristicvaluechanged',
                                           handleNotifications);
         connected = true;
-        window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
+        console.log('\r\n' + bleDevice.name + ' Connected.');
         nusSendString('\r');
         setConnButtonState(true);
     })
     .catch(error => {
         console.log('' + error);
-        window.term_.io.println('' + error);
         if(bleDevice && bleDevice.gatt.connected)
         {
             bleDevice.gatt.disconnect();
@@ -115,7 +112,7 @@ function disconnect() {
 
 function onDisconnected() {
     connected = false;
-    window.term_.io.println('\r\n' + bleDevice.name + ' Disconnected.');
+    console.log('\r\n' + bleDevice.name + ' Disconnected.');
     setConnButtonState(false);
 }
 
@@ -144,7 +141,7 @@ function handleNotifications(event) {
         // Head will keep track of which byte out of the expected 5 we are reading
         if (str == '170') {
             head = 0
-            window.term_.io.print("---"); // update terminal on the screen
+            console.log("---"); // update terminal on the screen
         } else {
             head += 1
         }
@@ -166,7 +163,7 @@ function handleNotifications(event) {
         }
     update_touchpad() // update touchpad on the screen
     document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
-    window.term_.io.print(str); // update terminal on the screen
+    console.log(str); // update terminal on the screen
 }
 
 function update_touchpad() {
@@ -209,7 +206,7 @@ function nusSendString(s) {
         }
         // sendNextChunk(val_arr);
     } else {
-        window.term_.io.println('Not connected to a device yet.');
+        console.log('Not connected to a device yet.');
     }
 }
 
@@ -225,47 +222,47 @@ function sendNextChunk(a) {
 
 
 
-function initContent(io) {
-    io.println("\r\n\
-Welcome to Web Device CLI V0.1.0 (03/19/2019)\r\n\
-Copyright (C) 2019  makerdiary.\r\n\
-\r\n\
-This is a Web Command Line Interface via NUS (Nordic UART Service) using Web Bluetooth.\r\n\
-\r\n\
-  * Source: https://github.com/makerdiary/web-device-cli\r\n\
-  * Live:   https://makerdiary.github.io/web-device-cli\r\n\
-");
-}
+// function initContent(io) {
+//     io.println("\r\n\
+// Welcome to Web Device CLI V0.1.0 (03/19/2019)\r\n\
+// Copyright (C) 2019  makerdiary.\r\n\
+// \r\n\
+// This is a Web Command Line Interface via NUS (Nordic UART Service) using Web Bluetooth.\r\n\
+// \r\n\
+//   * Source: https://github.com/makerdiary/web-device-cli\r\n\
+//   * Live:   https://makerdiary.github.io/web-device-cli\r\n\
+// ");
+// }
 
-function setupHterm() {
-    const term = new hterm.Terminal();
+// function setupHterm() {
+//     const term = new hterm.Terminal();
 
-    term.onTerminalReady = function() {
-        const io = this.io.push();
-        io.onVTKeystroke = (string) => {
-            nusSendString(string);
-        };
-        io.sendString = nusSendString;
-        initContent(io);
-        this.setCursorVisible(true);
-        this.keyboard.characterEncoding = 'raw';
-    };
-    term.decorate(document.querySelector('#terminal'));
-    term.installKeyboard();
+//     term.onTerminalReady = function() {
+//         const io = this.io.push();
+//         io.onVTKeystroke = (string) => {
+//             nusSendString(string);
+//         };
+//         io.sendString = nusSendString;
+//         initContent(io);
+//         this.setCursorVisible(true);
+//         this.keyboard.characterEncoding = 'raw';
+//     };
+//     term.decorate(document.querySelector('#terminal'));
+//     term.installKeyboard();
 
-    term.contextMenu.setItems([
-        ['Terminal Reset', () => {term.reset(); initContent(window.term_.io);}],
-        ['Terminal Clear', () => {term.clearHome();}],
-        [hterm.ContextMenu.SEPARATOR],
-        ['GitHub', function() {
-            lib.f.openWindow('https://github.com/makerdiary/web-device-cli', '_blank');
-        }],
-    ]);
+//     term.contextMenu.setItems([
+//         ['Terminal Reset', () => {term.reset(); initContent(window.term_.io);}],
+//         ['Terminal Clear', () => {term.clearHome();}],
+//         [hterm.ContextMenu.SEPARATOR],
+//         ['GitHub', function() {
+//             lib.f.openWindow('https://github.com/makerdiary/web-device-cli', '_blank');
+//         }],
+//     ]);
 
-    // Useful for console debugging.
-    window.term_ = term;
-}
+//     // Useful for console debugging.
+//     window.term_ = term;
+// }
 
-window.onload = function() {
-    lib.init(setupHterm);
-};
+// window.onload = function() {
+//     lib.init(setupHterm);
+// };
