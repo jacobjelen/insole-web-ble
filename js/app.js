@@ -24,7 +24,6 @@ function connectionToggle() {
     } else {
         connect();
     }
-    document.getElementById('terminal').focus();
 }
 
 // Sets button to either Connect or Disconnect
