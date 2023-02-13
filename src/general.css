@@ -21,6 +21,10 @@
   box-sizing: border-box; /* to have the border line on the div inside */
 }
 
+.active{
+  color: var(--highlight-color)
+}
+
 #connection-panel {
   background: transparent;
 }
@@ -59,6 +63,7 @@ html, body, .container {
   text-decoration: none;
 }
 
+
 #clientConnectButton{
   position:absolute;
   padding: 5px 10px;
@@ -77,6 +82,25 @@ html, body, .container {
   color: var(--main-color);
   border-color: var(--main-color) !important;
   cursor: pointer;
+}
+
+#logging{
+  position: absolute;
+  right: 0px;
+}
+
+.button{
+  position:absolute;
+  padding: 5px 10px;
+  margin: 15px;
+  width: auto;
+  color: grey;
+  font-size: clamp(13px, var(--label-font-size), 15px) ;
+  font-family: "DINPro",sans-serif;
+  font-weight: 400;
+  background-color: var(--bg-color);
+  border: solid 1px grey;
+  border-radius: 3px;
 }
 
 .connect-ok{

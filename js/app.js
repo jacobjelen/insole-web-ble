@@ -223,7 +223,6 @@ function sendNextChunk(a) {
 // DATA LOGGING
 const recordButton = document.getElementById("recordButton")
 const saveButton = document.getElementById("saveButton")
-const recordingFlag = document.getElementById("recordingFlag")
 let recordingOn = false
 
 const logStringDefault = "Timestamp, Position X, Position Y, Activation Z \n"
@@ -239,6 +238,7 @@ recordButton.onclick = () => {
         logString = logStringDefault
         recordingOn = true
         recordButton.innerText = "Stop Recording"
+        recordButton.classList.add("active")
     }
 }
 
