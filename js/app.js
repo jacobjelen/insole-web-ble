@@ -234,6 +234,7 @@ recordButton.onclick = () => {
     if (recordingOn) {
         recordingOn = false
         recordButton.innerText = "Start Recording"
+        recordButton.classList.remove("active")
     } else {
         logString = logStringDefault
         recordingOn = true
