@@ -160,7 +160,14 @@ function handleNotifications(event) {
         }
     }
 
-    if (recordingOn) { logData() } // Log data? 
+    // Log data? 
+    if (recordingOn) {
+        logString = logString.concat(
+            `${Date.now()}, ${touchpad.x}, ${touchpad.y}, ${touchpad.z} \n`
+        )
+        console.log('Data-points logged: ' + logString.split('\n').length - 3)
+    }
+
     update_touchpad() // update touchpad on the screen
     document.getElementById('values').innerHTML = `x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
     console.log(str); // update terminal on the screen
@@ -236,7 +243,7 @@ recordButton.onclick = () => {
         recordButton.innerText = "Start Recording"
         recordButton.classList.remove("active")
     } else {
-        logString = logStringDefault
+        logString = `Recording started on ${new Date(Date.now())} \n` + logStringDefault
         recordingOn = true
         recordButton.innerText = "Stop Recording"
         recordButton.classList.add("active")
@@ -246,17 +253,6 @@ recordButton.onclick = () => {
 saveButton.onclick = () => {
     console.log('save button')
     saveLog(logString)
-}
-
-// Add a new data-point
-function logData() {
-    console.log('log data')
-
-    logString = logString.concat(
-        `${Date.now()}, ${_model.touchpad.x}, ${_model.touchpad.y}, ${_model.touchpad.z} \n`
-    )
-
-    console.log(logString)
 }
 
 // Save data as CSV
