@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 // // PETER
-const bleNusServiceUUID = '713d0000-503e-4c75-ba94-3148f18d941e';
-const bleNusCharTXUUID = '713d0002-503e-4c75-ba94-3148f18d941e';
+const bleNusServiceUUID = "713d0000-503e-4c75-ba94-3148f18d941e";
+const bleNusCharTXUUID = "713d0002-503e-4c75-ba94-3148f18d941e";
 
 const MTU = 20;
 
@@ -13,105 +13,110 @@ var txCharacteristic;
 var connected = false;
 
 const touchpad = {
-    x: 0,
-    y: 0,
-    z: 0
-}
+  x: 0,
+  y: 0,
+  z: 0,
+};
 
 function connectionToggle() {
-    if (connected) {
-        disconnect();
-    } else {
-        connect();
-    }
+  if (connected) {
+    disconnect();
+  } else {
+    connect();
+  }
 }
 
 // Sets button to either Connect or Disconnect
 function setConnButtonState(enabled) {
-    if (enabled) {
-        document.getElementById("clientConnectButton").innerHTML = "Disconnect";
-    } else {
-        document.getElementById("clientConnectButton").innerHTML = "Connect";
-    }
+  if (enabled) {
+    document.getElementById("clientConnectButton").innerHTML = "Disconnect";
+  } else {
+    document.getElementById("clientConnectButton").innerHTML = "Connect";
+  }
 }
 
 function connect() {
-    if (!navigator.bluetooth) {
-        console.log('WebBluetooth API is not available.\r\n' +
-            'Please make sure the Web Bluetooth flag is enabled.');
-        return;
-    }
-    console.log('Requesting Bluetooth Device...');
-    navigator.bluetooth.requestDevice({
-        // filters: [{services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e']}],
-        optionalServices: [bleNusServiceUUID],
-        acceptAllDevices: true
+  if (!navigator.bluetooth) {
+    console.log(
+      "WebBluetooth API is not available.\r\n" +
+        "Please make sure the Web Bluetooth flag is enabled."
+    );
+    return;
+  }
+  console.log("Requesting Bluetooth Device...");
+  navigator.bluetooth
+    .requestDevice({
+      // filters: [{services: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e']}],
+      optionalServices: [bleNusServiceUUID],
+      acceptAllDevices: true,
     })
-        .then(device => {
-            bleDevice = device;
-            console.log('Found ' + device.name);
-            console.log('Connecting to GATT Server...');
-            bleDevice.addEventListener('gattserverdisconnected', onDisconnected);
-            return device.gatt.connect();
-        })
-        .then(server => {
-            console.log('Locate NUS service');
-            return server.getPrimaryService(bleNusServiceUUID);
-        })
-        .then(service => {
-            nusService = service;
-            console.log('Found NUS service: ' + service.uuid);
-        })
+    .then((device) => {
+      bleDevice = device;
+      console.log("Found " + device.name);
+      console.log("Connecting to GATT Server...");
+      bleDevice.addEventListener("gattserverdisconnected", onDisconnected);
+      return device.gatt.connect();
+    })
+    .then((server) => {
+      console.log("Locate NUS service");
+      return server.getPrimaryService(bleNusServiceUUID);
+    })
+    .then((service) => {
+      nusService = service;
+      console.log("Found NUS service: " + service.uuid);
+    })
 
-        .then(() => {
-            console.log('Locate TX characteristic');
-            return nusService.getCharacteristic(bleNusCharTXUUID);
-        })
-        .then(characteristic => {
-            txCharacteristic = characteristic;
-            console.log('Found TX characteristic');
-        })
-        .then(() => {
-            console.log('Enable notifications');
-            return txCharacteristic.startNotifications();
-        })
-        .then(() => {
-            console.log('Notifications started');
-            txCharacteristic.addEventListener('characteristicvaluechanged',
-                handleNotifications);
-            connected = true;
-            console.log('\r\n' + bleDevice.name + ' Connected.');
-            nusSendString('\r');
-            setConnButtonState(true);
-        })
-        .catch(error => {
-            console.log('' + error);
-            if (bleDevice && bleDevice.gatt.connected) {
-                bleDevice.gatt.disconnect();
-            }
-        });
+    .then(() => {
+      console.log("Locate TX characteristic");
+      return nusService.getCharacteristic(bleNusCharTXUUID);
+    })
+    .then((characteristic) => {
+      txCharacteristic = characteristic;
+      console.log("Found TX characteristic");
+    })
+    .then(() => {
+      console.log("Enable notifications");
+      return txCharacteristic.startNotifications();
+    })
+    .then(() => {
+      console.log("Notifications started");
+      txCharacteristic.addEventListener(
+        "characteristicvaluechanged",
+        handleNotifications
+      );
+      connected = true;
+      console.log("\r\n" + bleDevice.name + " Connected.");
+      nusSendString("\r");
+      setConnButtonState(true);
+    })
+    .catch((error) => {
+      console.log("" + error);
+      if (bleDevice && bleDevice.gatt.connected) {
+        bleDevice.gatt.disconnect();
+      }
+    });
 }
 
 function disconnect() {
-    if (!bleDevice) {
-        console.log('No Bluetooth Device connected...');
-        return;
-    }
-    console.log('Disconnecting from Bluetooth Device...');
-    if (bleDevice.gatt.connected) {
-        bleDevice.gatt.disconnect();
-        connected = false;
-        setConnButtonState(false);
-        console.log('Bluetooth Device connected: ' + bleDevice.gatt.connected);
-    } else {
-        console.log('> Bluetooth Device is already disconnected');
-    }
+  if (!bleDevice) {
+    console.log("No Bluetooth Device connected...");
+    return;
+  }
+  console.log("Disconnecting from Bluetooth Device...");
+  if (bleDevice.gatt.connected) {
+    bleDevice.gatt.disconnect();
+    connected = false;
+    setConnButtonState(false);
+    console.log("Bluetooth Device connected: " + bleDevice.gatt.connected);
+  } else {
+    console.log("> Bluetooth Device is already disconnected");
+  }
 }
 
 function onDisconnected() {
-    connected = false;
-    console.log('\r\n' + bleDevice.name + ' Disconnected.');
-    setConnButtonState(false);
+  connected = false;
+  console.log("\r\n" + bleDevice.name + " Disconnected.");
+  setConnButtonState(false);
 }
 
 /* Data is comming in as 5 consequtive bytes
@@ -122,176 +127,182 @@ function onDisconnected() {
 [4] 0-50        = Activation
  */
 
-
 let head = 0;
 
 function handleNotifications(event) {
-    console.log('notification');
-    let value = event.target.value;
-    // Convert raw data bytes to character values and use these to construct a string.
-    let str = "";
+  console.log("notification");
+  let value = event.target.value;
+  // Convert raw data bytes to character values and use these to construct a string.
+  let str = "";
 
-    for (let i = 0; i < value.byteLength; i++) {
-        // str += String.fromCharCode(value.getUint8(i));
+  for (let i = 0; i < value.byteLength; i++) {
+    // str += String.fromCharCode(value.getUint8(i));
 
-        str = value.getUint8(i) // this will be a decimal number representing the incoming byte
+    str = value.getUint8(i); // this will be a decimal number representing the incoming byte
 
-        // Head will keep track of which byte out of the expected 5 we are reading
-        if (str == '170') {
-            head = 0
-            console.log("---"); // update terminal on the screen
-        } else {
-            head += 1
-        }
-
-        // Update the touchpad object
-        switch (head) {
-            case 1:
-                touchpad.x = str;
-                break;
-            case 3:
-                touchpad.y = str;
-                break;
-            case 4:
-                touchpad.z = str;
-                break;
-            // default:
-            //   console.log('x is something else');
-        }
+    // Head will keep track of which byte out of the expected 5 we are reading
+    if (str == "170") {
+      head = 0;
+      console.log("---"); // update terminal on the screen
+    } else {
+      head += 1;
     }
 
-    // Log data? 
-    if (recordingOn) {
-        logString = logString.concat(
-            `${Date.now()}, ${touchpad.x}, ${touchpad.y}, ${touchpad.z} \n`
-        )
-        console.log('Data-points logged: ' + logString.split('\n').length - 3)
+    // Update the touchpad object
+    switch (head) {
+      case 1:
+        touchpad.x = str;
+        break;
+      case 3:
+        touchpad.y = str;
+        break;
+      case 4:
+        touchpad.z = str;
+        break;
+      // default:
+      //   console.log('x is something else');
     }
+  }
 
-    update_touchpad() // update touchpad on the screen
-    document.getElementById('values').innerHTML = `x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
-    console.log(str); // update terminal on the screen
+  // Log data?
+  if (recordingOn) {
+    logString = logString.concat(
+      `${Date.now()}, ${touchpad.x}, ${touchpad.y}, ${touchpad.z} \n`
+    );
+
+    //update graph
+    const now = Date.now();
+    chartConfig.data.datasets[0].data.push({x: now, y: touchpad.x}); 
+    chartConfig.data.datasets[1].data.push({x: now, y: touchpad.y}); 
+    chartConfig.data.datasets[2].data.push({x: now, y: touchpad.z}); 
+    liveChart.update();
+
+    console.log("Data-points logged: " + logString.split("\n").length - 3);
+  }
+
+  update_touchpad(); // update touchpad on the screen
+  document.getElementById(
+    "values"
+  ).innerHTML = `x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t`; // update readout on the screen
+  console.log(str); // update terminal on the screen
 }
 
 function update_touchpad() {
-    const touchpad_threshold = 0 //450
+  const touchpad_threshold = 0; //450
 
-    const canvas = document.getElementById('tp_canvas')
-    const press = document.getElementById('press')
+  const canvas = document.getElementById("tp_canvas");
+  const press = document.getElementById("press");
 
-    const posx = touchpad.x / 255 * canvas.clientWidth
-    const posy = touchpad.y / 255 * canvas.clientHeight
-    const sizez = touchpad.z / 50 * canvas.clientHeight / 3 // size of pressure cirle scales with the canvas/window
-    // console.log(`x: ${posx}  y: ${posy}  z: ${sizez}`)
+  const posx = (touchpad.x / 255) * canvas.clientWidth;
+  const posy = (touchpad.y / 255) * canvas.clientHeight;
+  const sizez = ((touchpad.z / 50) * canvas.clientHeight) / 3; // size of pressure cirle scales with the canvas/window
+  // console.log(`x: ${posx}  y: ${posy}  z: ${sizez}`)
 
-    // press is a div inside the tp_canvas div representing position and force of pressure on the physical sensor
-    press.style.top = posy - (sizez / 2) // offset by a half of the size => center in the middle of press
-    press.style.left = posx - (sizez / 2)
+  // press is a div inside the tp_canvas div representing position and force of pressure on the physical sensor
+  press.style.top = posy - sizez / 2; // offset by a half of the size => center in the middle of press
+  press.style.left = posx - sizez / 2;
 
-    if (touchpad.z > touchpad_threshold) {
-        // press.style.display = 'block'
-        press.style.width = sizez
-        press.style.height = sizez
-        press.style.opacity = 1
-        console.log(`press: x ${posx}\t y ${posy}\t z ${sizez}\t`)
-    } else {
-        // press.style.display = 'none'
-        press.style.width = 0
-        press.style.height = 0
-        press.style.opacity = 0
-    }
-
+  if (touchpad.z > touchpad_threshold) {
+    // press.style.display = 'block'
+    press.style.width = sizez;
+    press.style.height = sizez;
+    press.style.opacity = 1;
+    console.log(`press: x ${posx}\t y ${posy}\t z ${sizez}\t`);
+  } else {
+    // press.style.display = 'none'
+    press.style.width = 0;
+    press.style.height = 0;
+    press.style.opacity = 0;
+  }
 }
 
 function nusSendString(s) {
-    if (bleDevice && bleDevice.gatt.connected) {
-        console.log("send: " + s);
-        let val_arr = new Uint8Array(s.length)
-        for (let i = 0; i < s.length; i++) {
-            let val = s[i].charCodeAt(0);
-            val_arr[i] = val;
-        }
-        // sendNextChunk(val_arr);
-    } else {
-        console.log('Not connected to a device yet.');
+  if (bleDevice && bleDevice.gatt.connected) {
+    console.log("send: " + s);
+    let val_arr = new Uint8Array(s.length);
+    for (let i = 0; i < s.length; i++) {
+      let val = s[i].charCodeAt(0);
+      val_arr[i] = val;
     }
+    // sendNextChunk(val_arr);
+  } else {
+    console.log("Not connected to a device yet.");
+  }
 }
 
 function sendNextChunk(a) {
-    let chunk = a.slice(0, MTU);
-    rxCharacteristic.writeValue(chunk)
-        .then(function () {
-            if (a.length > MTU) {
-                sendNextChunk(a.slice(MTU));
-            }
-        });
+  let chunk = a.slice(0, MTU);
+  rxCharacteristic.writeValue(chunk).then(function () {
+    if (a.length > MTU) {
+      sendNextChunk(a.slice(MTU));
+    }
+  });
 }
 
 // DATA LOGGING
-const recordButton = document.getElementById("recordButton")
-const saveButton = document.getElementById("saveButton")
-let recordingOn = false
+const recordButton = document.getElementById("recordButton");
+const saveButton = document.getElementById("saveButton");
+let recordingOn = false;
 
-const logStringDefault = "Timestamp, Position X, Position Y, Activation Z \n"
-let logString = logStringDefault
+const logStringDefault = "Timestamp, Position X, Position Y, Activation Z \n";
+let logString = logStringDefault;
 
 // Buttons
 recordButton.onclick = () => {
-    console.log('record button')
-   if (recordingOn){
-    recordingOn = false
-    recordButton.innerText = "Start Recording"
-    recordButton.classList.remove('fade')
-    saveButton.classList.remove('hidden')
-   } else {
-    logString = `Recording started on ${new Date(Date.now())} \n` + logStringDefault
-    recordingOn = true
-    recordButton.innerText = "Recording"
-    recordButton.classList.add('fade')
-   }
+  console.log("record button");
+  if (recordingOn) {
+    recordingOn = false;
+    recordButton.innerText = "Start Recording";
+    recordButton.classList.remove("fade");
+    saveButton.classList.remove("hidden");
+  } else {
+    logString =
+      `Recording started on ${new Date(Date.now())} \n` + logStringDefault;
+    recordingOn = true;
+    recordButton.innerText = "Recording";
+    recordButton.classList.add("fade");
   }
-  
-  recordButton.onmouseover = () => {
-    if (recordingOn) {
-      recordButton.innerText = "Stop Recording"
-    }
+};
+
+recordButton.onmouseover = () => {
+  if (recordingOn) {
+    recordButton.innerText = "Stop Recording";
   }
-  
-  let isMouseOver = false
-  
-  recordButton.onmouseleave = () => {
-    if (!isMouseOver && recordingOn) {
-      recordButton.innerText = "Recording"
-      setTimeout(() => {
-        isMouseOver = false;
-      }, 500); // Set the throttle time to 500 milliseconds
-    }
+};
+
+let isMouseOver = false;
+
+recordButton.onmouseleave = () => {
+  if (!isMouseOver && recordingOn) {
+    recordButton.innerText = "Recording";
+    setTimeout(() => {
+      isMouseOver = false;
+    }, 500); // Set the throttle time to 500 milliseconds
   }
+};
 
 saveButton.onclick = () => {
-    console.log('save button')
-    saveLog(logString)
-}
+  console.log("save button");
+  saveLog(logString);
+};
 
 // Save data as CSV
 function saveLog(data) {
-    // tutorial: https://www.youtube.com/watch?v=oHGnaE2BQXo
+  // tutorial: https://www.youtube.com/watch?v=oHGnaE2BQXo
 
-    const a = document.createElement('a')   // link element for downloading the file
-    const myBlob = new Blob([data], { type: 'text/csv' })  // file-like object
-    const url = window.URL.createObjectURL(myBlob)  // creates a link to the blob
+  const a = document.createElement("a"); // link element for downloading the file
+  const myBlob = new Blob([data], { type: "text/csv" }); // file-like object
+  const url = window.URL.createObjectURL(myBlob); // creates a link to the blob
 
-    a.href = url                      //a element point to the blob
-    a.download = "InfiSole_log.csv"   //download file name
-    a.style.display = "none"          //hide it from the user, we call it elsewhere
-    document.body.append(a)           //add to the body
+  a.href = url; //a element point to the blob
+  a.download = "InfiSole_log.csv"; //download file name
+  a.style.display = "none"; //hide it from the user, we call it elsewhere
+  document.body.append(a); //add to the body
 
-    a.click()
-    a.remove()
-    window.URL.revokeObjectURL(url)   //clear the blowser memory
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url); //clear the blowser memory
 }
-
-
 
 // BROWSER TERMINAL
 // function initContent(io) {

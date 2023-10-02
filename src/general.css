@@ -21,13 +21,23 @@
   box-sizing: border-box; /* to have the border line on the div inside */
 }
 
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
 .active{
   color: var(--highlight-color)
 }
 
 #menu-panel {
-  background: transparent;
-  margin-top: 15px;
+  position: absolute;
+  top: 15px;
+  left: 10px
+ 
+  
 }
 
 /* MAIN */
@@ -36,11 +46,6 @@ main{
   height: var(--main-height);
 
   /* background: gray; */
-
-  position: absolute;
-  top: 50%; 
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
 }
 
 
