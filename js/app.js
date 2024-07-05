@@ -160,9 +160,37 @@ function handleNotifications(event) {
             //   console.log('x is something else');
           }
         }
-    update_touchpad() // update touchpad on the screen
-    document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
-    console.log(str); // update terminal on the screen
+    // document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
+    console.log(`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t`); // update terminal on the screen
+    
+    if (touchpad.z > 2) buttonPressed();
+}
+
+ // Function to handle the button press message
+ let timeoutId = null
+ const timeoutInterval = 2000; // 2 seconds
+ 
+ function buttonPressed() {
+    const div = document.getElementById('circle');
+    div.style.backgroundColor = 'var(--highlight-color)';
+
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(() => {
+        div.style.backgroundColor = 'var(--background-color)';
+    }, timeoutInterval);
+}
+
+function sendSMS(){
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    const client = require('twilio')(accountSid, authToken);
+
+client.messages
+      .create({from: '+15017122661', body: 'Hi there', to: '+15558675310'})
+      .then(message => console.log(message.sid));
 }
 
 function update_touchpad() {

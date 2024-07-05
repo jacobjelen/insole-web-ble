@@ -1,21 +1,21 @@
-:root{
+:root {
   --main-color: white;
   --highlight-color: #ff5500;
   --bg-color: #363636;
   --slider-thumb-color: var(--bg-color);
   --infi-orange: #F46A24;
 
-  --transition: 0.2s;   /* default: 0.5s  */
+  --transition: 0.2s; /* default: 0.5s  */
 
   --border-width: 1px;
   --keypad-font-size: 9px;
-  --label-font-size: calc( var(--main-width)*0.018);
+  --label-font-size: calc(var(--main-width) * 0.018);
 
-  color:var(--main-color);
-  background-color:var(--bg-color);
+  color: var(--main-color);
+  background-color: var(--bg-color);
   font-size: var(--label-font-size);
 
-  font-family: "DINPro",sans-serif;
+  font-family: "DINPro", sans-serif;
   font-weight: 400;
 
   box-sizing: border-box; /* to have the border line on the div inside */
@@ -26,20 +26,19 @@
 }
 
 /* MAIN */
-main{
+main {
   width: var(--main-width);
   height: var(--main-height);
 
-  /* background: gray; */
-
   position: absolute;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
 
-
-html, body, .container {
+html,
+body,
+.container {
   height: 100%;
   width: auto;
   margin: 0;
@@ -54,119 +53,87 @@ html, body, .container {
   z-index: 99999;
 }
 
-#serial a{
+#serial a {
   color: var(--highlight-color);
   text-decoration: none;
 }
 
-#clientConnectButton{
-  position:absolute;
+#clientConnectButton {
+  position: absolute;
   padding: 5px 10px;
   margin: 15px;
   width: auto;
   color: grey;
-  font-size: clamp(13px, var(--label-font-size), 15px) ;
-  font-family: "DINPro",sans-serif;
+  font-size: clamp(13px, var(--label-font-size), 15px);
+  font-family: "DINPro", sans-serif;
   font-weight: 400;
   background-color: var(--bg-color);
   border: solid 1px grey;
   border-radius: 3px;
 }
 
-#clientConnectButton:hover{
+#clientConnectButton:hover {
   color: var(--main-color);
   border-color: var(--main-color) !important;
   cursor: pointer;
 }
 
-.connect-ok{
+.connect-ok {
   color: grey;
   border: 0px !important;
   border-color: solid 1px grey !important;
 }
 
-.connect-error{
-  
+.connect-error {
   color: var(--highlight-color);
   border-color: var(--highlight-color) !important;
 }
 
-#notSupported{
+#notSupported {
   display: block;
-  
   width: clamp(100px, 100%, 300px);
-
-  position:absolute;
+  position: absolute;
   margin: 15px;
   top: 5%;
-
-  font-size: clamp(13px, var(--label-font-size), 15px) ;
-  /* background-color: grey; */
+  font-size: clamp(13px, var(--label-font-size), 15px);
 }
 
-#notSupported li{
-  margin: 10px 0px
+#notSupported li {
+  margin: 10px 0px;
 }
-
 
 /* GENERAL */
 
-.border{
+.border {
   border: var(--border-width) solid var(--main-color) !important;
 }
 
-.label{
-position: relative;
-opacity: 1
+.label {
+  position: relative;
+  opacity: 1;
 }
 
-.hidden{
+.hidden {
   display: none !important;
 }
 
-.bg-texture{
+.bg-texture {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
-#terminal{ 
+#terminal {
   position: absolute;
   width: 30%;
   right: 0px;
   height: 100%;
-  /* opacity: 0.3; */
-
 }
-
-
-
-/* For presentation only, no need to copy the code below */
-
-/* .container * {
-  border: 0.1px solid grey;
-  z-index: -50;
-}  */
-
-/* .container *:after {
-  content:attr(class);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  color: red;
-  z-index: -50;
-} */
-
 
 /* FONTS */
 @font-face {
   font-family: 'DINPro';
   src: url('../fonts/DINPro-Bold.woff2') format('woff2'),
-      url('../fonts/DINPro-Bold.woff') format('woff');
+    url('../fonts/DINPro-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -175,7 +142,7 @@ opacity: 1
 @font-face {
   font-family: 'DINPro';
   src: url('../fonts/DINPro-Medium.woff2') format('woff2'),
-      url('../fonts/DINPro-Medium.woff') format('woff');
+    url('../fonts/DINPro-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -184,7 +151,7 @@ opacity: 1
 @font-face {
   font-family: 'DINPro';
   src: url('../fonts/DINPro-Black.woff2') format('woff2'),
-      url('../fonts/DINPro-Black.woff') format('woff');
+    url('../fonts/DINPro-Black.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -193,21 +160,8 @@ opacity: 1
 @font-face {
   font-family: 'DINPro';
   src: url('../fonts/DINPro-Light.woff2') format('woff2'),
-      url('../fonts/DINPro-Light.woff') format('woff');
+    url('../fonts/DINPro-Light.woff') format('woff');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete

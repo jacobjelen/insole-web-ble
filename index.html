@@ -5,16 +5,8 @@
         <title>Infi-Sole WebBLE</title>
         <link rel="icon" type="image/x-icon" href="/src/imgs/infi.ico">
 
-
-
-        <!-- <link rel="stylesheet" href="./src/sample.css"> -->
-        <link rel="stylesheet" href="./src/sole.css">
-
-        <!-- GENERAL STYLE MUST BE INCLUDED LAST -->
-        <link rel="stylesheet" href="./src/general.css">
-
-        <!-- SCRIPTS -->
-        <!--<script src='./js/resize.js'></script>  scales the <main> element to always fit the window -->
+        <link rel="stylesheet" href="./src/style.css">
+        <script src="https://sdk.twilio.com/js/client/v1.14/twilio.min.js"></script>
         <script src='./js/app.js'></script>
     </head>
 
@@ -29,41 +21,12 @@
         <!-- // MAIN //////////////////////////////////////////// -->
         <main id="main">
 
-
-            <div id="sole-container" class="container">
-
-                <div id="touchpad" class="touchpad-box bg-texture">
-                    <div id="sole-mask">
-                        <!-- grey mask hiding the outside of the insole -->
-                        <img src="src/imgs/sole_mask.svg" alt="">
-                    </div>
-                    <div id="sole-mask">
-                        <!-- white line around the insole -->
-                        <img src="src/imgs/sole_line.svg" alt="">
-                    </div>
-                    <div id="tp_canvas" class="flip-y">
-                        <div id="press"></div>
-                    </div>
-
-                </div>
-
-            </div> <!-- container  -->
-
+            <div id="circle" class="circle"></div>
+     
+            
 
 
         </main>
-
-        <div id="flip-button" onclick="flipX()" role="button">
-            <img src="src/imgs/arrows.svg">
-        </div>
-
-        <div id="values" >
-            xyz
-        </div>
-
-        <script>
-            function flipX() {document.getElementById("touchpad").classList.toggle('flip-x')}
-        </script>
         
         <!-- <div id='terminal'></div>
         <script src='./js/hterm_all.js'></script> -->
