@@ -116,6 +116,21 @@ body,
 
 /* GENERAL */
 
+#threshold_wrapper{
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: gray;
+}
+
+#threshold{
+color: grey;
+background-color: var(--background-color);
+border: 1px solid grey;
+width: 70px
+
+}
+
 .border {
   border: var(--border-width) solid var(--main-color) !important;
 }

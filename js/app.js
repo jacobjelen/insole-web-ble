@@ -163,7 +163,7 @@ function handleNotifications(event) {
     // document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
     console.log(`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t`); // update terminal on the screen
     
-    if (touchpad.z > 2) buttonPressed();
+    if (touchpad.z > document.getElementById("threshold").value) buttonPressed();
 }
 
  // Function to handle the button press message
