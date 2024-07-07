@@ -168,7 +168,7 @@ function handleNotifications(event) {
 
  // Function to handle the button press message
  let timeoutId = null
- const timeoutInterval = 2000; // 2 seconds
+ const timeoutInterval = 500; // 2 seconds
  
  function buttonPressed() {
     const div = document.getElementById('circle');
