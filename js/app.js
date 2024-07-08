@@ -78,7 +78,7 @@ function connect() {
     .then(() => {
         console.log('Notifications started');
         txCharacteristic.addEventListener('characteristicvaluechanged',
-                                          handleNotifications);
+                                          buttonPressed);
         connected = true;
         console.log('\r\n' + bleDevice.name + ' Connected.');
         nusSendString('\r');
