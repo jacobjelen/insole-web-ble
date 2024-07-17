@@ -127,8 +127,12 @@ function onDisconnected() {
 let head = 0;
 
 function handleNotifications(event) {
+    buttonPressed();
+    return // the rest is not relevat for use with a single button
+
     console.log('notification');
     let value = event.target.value;
+
     // Convert raw data bytes to character values and use these to construct a string.
     let str = "";
 
@@ -163,65 +167,33 @@ function handleNotifications(event) {
     // document.getElementById('values').innerHTML=`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t` // update readout on the screen
     console.log(`x: ${touchpad.x}\t y: ${touchpad.y}\t z: ${touchpad.z}\t`); // update terminal on the screen
     
-    if (touchpad.z > document.getElementById("threshold").value) buttonPressed();
 }
 
  // Function to handle the button press message
  let timeoutId = null
  const timeoutInterval = 500; // 2 seconds
- 
+ let counter = 0;
+
  function buttonPressed() {
     const div = document.getElementById('circle');
     div.style.backgroundColor = 'var(--highlight-color)';
+    counter++;
+    div.innerText = counter;
 
     if (timeoutId) {
         clearTimeout(timeoutId);
     }
-
+    
     timeoutId = setTimeout(() => {
         div.style.backgroundColor = 'var(--background-color)';
+        counter = 0;
+        div.innerText = counter;
     }, timeoutInterval);
+
+    
 }
 
-function sendSMS(){
-    const accountSid = process.env.TWILIO_ACCOUNT_SID;
-    const authToken = process.env.TWILIO_AUTH_TOKEN;
-    const client = require('twilio')(accountSid, authToken);
 
-client.messages
-      .create({from: '+15017122661', body: 'Hi there', to: '+15558675310'})
-      .then(message => console.log(message.sid));
-}
-
-function update_touchpad() {
-    const touchpad_threshold = 0 //450
-  
-    const canvas = document.getElementById('tp_canvas')
-    const press = document.getElementById('press')
-  
-    const posx = touchpad.x / 255 * canvas.clientWidth
-    const posy = touchpad.y / 255 * canvas.clientHeight
-    const sizez = touchpad.z / 50 * canvas.clientHeight / 3 // size of pressure cirle scales with the canvas/window
-    // console.log(`x: ${posx}  y: ${posy}  z: ${sizez}`)
-  
-    // press is a div inside the tp_canvas div representing position and force of pressure on the physical sensor
-    press.style.top = posy - (sizez / 2) // offset by a half of the size => center in the middle of press
-    press.style.left = posx - (sizez / 2)
-  
-    if (touchpad.z > touchpad_threshold) {
-      // press.style.display = 'block'
-      press.style.width = sizez 
-      press.style.height = sizez 
-      press.style.opacity = 1
-      console.log(`press: x ${posx}\t y ${posy}\t z ${sizez}\t`)
-    } else {
-      // press.style.display = 'none'
-      press.style.width = 0
-      press.style.height = 0
-      press.style.opacity = 0
-    }
-  
-  }
 
 function nusSendString(s) {
     if(bleDevice && bleDevice.gatt.connected) {
@@ -247,49 +219,3 @@ function sendNextChunk(a) {
       });
 }
 
-
-
-// function initContent(io) {
-//     io.println("\r\n\
-// Welcome to Web Device CLI V0.1.0 (03/19/2019)\r\n\
-// Copyright (C) 2019  makerdiary.\r\n\
-// \r\n\
-// This is a Web Command Line Interface via NUS (Nordic UART Service) using Web Bluetooth.\r\n\
-// \r\n\
-//   * Source: https://github.com/makerdiary/web-device-cli\r\n\
-//   * Live:   https://makerdiary.github.io/web-device-cli\r\n\
-// ");
-// }
-
-// function setupHterm() {
-//     const term = new hterm.Terminal();
-
-//     term.onTerminalReady = function() {
-//         const io = this.io.push();
-//         io.onVTKeystroke = (string) => {
-//             nusSendString(string);
-//         };
-//         io.sendString = nusSendString;
-//         initContent(io);
-//         this.setCursorVisible(true);
-//         this.keyboard.characterEncoding = 'raw';
-//     };
-//     term.decorate(document.querySelector('#terminal'));
-//     term.installKeyboard();
-
-//     term.contextMenu.setItems([
-//         ['Terminal Reset', () => {term.reset(); initContent(window.term_.io);}],
-//         ['Terminal Clear', () => {term.clearHome();}],
-//         [hterm.ContextMenu.SEPARATOR],
-//         ['GitHub', function() {
-//             lib.f.openWindow('https://github.com/makerdiary/web-device-cli', '_blank');
-//         }],
-//     ]);
-
-//     // Useful for console debugging.
-//     window.term_ = term;
-// }
-
-// window.onload = function() {
-//     lib.init(setupHterm);
-// };
