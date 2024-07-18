@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const sendSMS = async (number, message) => {
     const url = "https://rest.clicksend.com/v3/sms/send";
     const username = "jacobjelen@gmail.com";
@@ -30,8 +32,9 @@ const sendSMS = async (number, message) => {
       }
   
       const responseData = await response.json();
-      console.log(responseData);
-      console.log(responseData.response_code);
+      // console.log(responseData);
+      return responseData;
+
     } catch (error) {
       console.error('Error:', error);
     }

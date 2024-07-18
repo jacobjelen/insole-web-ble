@@ -21,18 +21,6 @@
   box-sizing: border-box; /* to have the border line on the div inside */
 }
 
-.circle {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background-color: var(--background-color);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid white;
-}
-
 #connection-panel {
   background: transparent;
 }
@@ -164,6 +152,73 @@ width: 70px
   font-weight: bold;
   font-style: normal;
   font-display: swap;
+}
+
+/* CIRCULAR PROGRESS */
+.progressContainer {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.progressCircle {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: conic-gradient(var(--infi-orange) 0% 0%, grey 0%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;  
+}
+
+.bgCircle {
+  position: relative;
+  width: 298px;
+  height: 298px;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+
+  
+}
+
+.circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid white;
+}
+
+.statusText {
+  position: absolute;
+  font-size: 20px;
+  /* font-weight: bold; */
+  color: grey;
+}
+
+#phoneNumber{
+  position: absolute;
+  bottom: 20px;
+  left: 15px;
+  padding: 5px 10px;
+  width: 150px;
+  color: grey;
+  font-size: clamp(13px, var(--label-font-size), 15px);
+  font-family: "DINPro", sans-serif;
+  font-weight: 400;
+  background-color: var(--bg-color);
+  border: solid 1px grey;
+  border-radius: 3px;
 }
 
 @font-face {
