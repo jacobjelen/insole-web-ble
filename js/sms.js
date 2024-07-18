@@ -1,4 +1,3 @@
-require('dotenv').config();
 
 const sendSMS = async (number, message) => {
     const url = "https://rest.clicksend.com/v3/sms/send";
