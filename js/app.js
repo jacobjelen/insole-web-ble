@@ -1,3 +1,5 @@
+import {sendSMS} from './sms.js'
+
 "use strict";
 // // PETER
 const bleNusServiceUUID = "713d0000-503e-4c75-ba94-3148f18d941e";
@@ -18,6 +20,8 @@ const touchpad = {
   z: 0,
 };
 
+
+window.connectionToggle = connectionToggle
 function connectionToggle() {
   if (connected) {
     disconnect();
@@ -188,18 +192,16 @@ function buttonPressed() {
  
     const phone = document.getElementById('phoneNumber').value;
 
-    const response = sendSMS(phone, 'What do you think of this?')
+    sendSMS(phone, 'What do you think of this?')
     .then((response) => {
-        console.log(response);
-        try {
-            if(response.http_code == 200) {
-                setStatusText("Message sent!");
-            } else {
-                setStatusText("Error sending message");
-            }
-        } catch (error) {
+        if(response.http_code == 200) {
+            setStatusText("Message sent!", "orange");
+        } else {
             setStatusText("Error sending message", 'orange');
-        }  
+        }
+    })
+    .catch((error) => {
+        setStatusText("Error sending message", 'orange');
     });
 
     setStatusText("Sending message...", 'orange');
@@ -237,7 +239,7 @@ function setStatusText(text,color=null) {
   statusText.innerText = text;
   if (color == null) return
   if(color == 'orange') {statusText.style.color = "var(--infi-orange)";}
-  else if(color == 'grey' || color == 'gray') {statusText.style.color = "grey";}
+  else {statusText.style.color = `${color}`;}
 }
 
 function nusSendString(s) {

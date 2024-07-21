@@ -220,7 +220,6 @@ width: 70px
   border: solid 1px grey;
   border-radius: 3px;
 }
-
 @font-face {
   font-family: 'DINPro';
   src: url('../fonts/DINPro-Medium.woff2') format('woff2'),
@@ -247,3 +246,4 @@ width: 70px
   font-style: normal;
   font-display: swap;
 }
+
